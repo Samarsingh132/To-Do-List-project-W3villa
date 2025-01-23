@@ -87,7 +87,25 @@ TodoRouter.post('/delTodo',async (req:any,res:any)=>{
         console.log(e);
         return res.send("something went wrong");
     }
+})
+TodoRouter.post('/updateTodo',async (req:any,res:any)=>{
+    try{
+        const upDate=await prisma.task.update({
+            where:{
+                id: req.body.taskid
+            },data: {
+                title: req.body.title,
+                desc: req.body.desc,
+            }
+        })
+        return res.json({upDate});
+    }catch(e){
+        console.log(e);
+        return res.send("something went wrong!");
+    }
 
 })
+
+   
 
 export default TodoRouter;
